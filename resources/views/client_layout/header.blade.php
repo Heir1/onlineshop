@@ -45,9 +45,9 @@
         </div>
         <div class="col-md-5 right">
             <ul>
-                <li><a href="login.php"><i class="fa fa-sign-in"></i> Login</a></li>
-                <li><a href="registration.php"><i class="fa fa-user-plus"></i> Register</a></li>
-                <li><a href="cart.php"><i class="fa fa-shopping-cart"></i> Cart ($0.00)</a></li>
+                <li><a href="{{ url('login')}}"><i class="fa fa-sign-in"></i> Login</a></li>
+                <li><a href="{{ url('register')}}"><i class="fa fa-user-plus"></i> Register</a></li>
+                <li><a href="{{ url('cart')}}"><i class="fa fa-shopping-cart"></i> Cart ($0.00)</a></li>
             </ul>
         </div>
         <div class="col-md-3 search-area">
@@ -72,7 +72,7 @@
             <div class="menu-container">
                 <div class="menu">
                     <ul>
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="{{url('/')}}">Home</a></li>
                     <li>
                         <a href="product-category.php?id=1&type=top-category">Men</a>
                         <ul>
@@ -251,9 +251,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="faq.php">FAQ</a></li>
-                    <li><a href="contact.php">Contact Us</a></li>
+                    <li><a href="{{url('about')}}">About Us</a></li>
+                    <li><a href="{{url('faq')}}">FAQ</a></li>
+                    <li><a href="{{url('contact')}}">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

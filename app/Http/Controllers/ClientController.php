@@ -67,4 +67,8 @@ class ClientController extends Controller
     public function viewproductdatails(){
         return view("client.viewproductdetails");
     }
+
+    public function searchproduct(){
+        return view("client.searchproduct");
+    }
 }

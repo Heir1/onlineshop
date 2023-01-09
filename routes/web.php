@@ -33,4 +33,5 @@ Route::get('viewpassword', [ClientController::class, 'viewpassword']);
 Route::get('customersorders', [ClientController::class, 'customersorders']);
 Route::get('viewproductbycategory', [ClientController::class, 'viewproductbycategory']);
 Route::get('viewproductdatails', [ClientController::class, 'viewproductdatails']);
+Route::get('searchproduct', [ClientController::class, 'searchproduct']);
 

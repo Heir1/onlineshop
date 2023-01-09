@@ -156,7 +156,7 @@
                     </div>
                     <div class="cart-buttons">
                        <ul>
-                          <li><a href="cart.php" class="btn btn-primary">Back to Cart</a></li>
+                          <li><a href="{{url("cart")}}" class="btn btn-primary">Back to Cart</a></li>
                        </ul>
                     </div>
                     <div class="clear"></div>

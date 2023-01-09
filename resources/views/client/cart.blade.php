@@ -67,8 +67,8 @@
                     <div class="cart-buttons">
                        <ul>
                           <li><input type="submit" value="Update Cart" class="btn btn-primary" name="form1"></li>
-                          <li><a href="index.php" class="btn btn-primary">Continue Shopping</a></li>
-                          <li><a href="checkout.php" class="btn btn-primary">Proceed to Checkout</a></li>
+                          <li><a href="{{url('/')}}" class="btn btn-primary">Continue Shopping</a></li>
+                          <li><a href="{{url('checkout')}}" class="btn btn-primary">Proceed to Checkout</a></li>
                        </ul>
                     </div>
                  </form>
