@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Coordonate;
+use App\Models\Message;
 
 class AdminController extends Controller
 {
@@ -16,10 +17,13 @@ class AdminController extends Controller
     }
 
     public function settings(){
+
         $logo = Logo::first();
         $favicon = Favicon::first();
         $coordonate = Coordonate::first();
-        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate);
+        $message = Message::first();
+
+        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate)->with("message",$message);
     }
 
     public function size(){

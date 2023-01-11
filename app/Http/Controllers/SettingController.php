@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Coordonate;
+use App\Models\Message;
 
 class SettingController extends Controller
 {
@@ -166,6 +167,36 @@ class SettingController extends Controller
         $coordonate->contactmap = $request->input('contact_map_iframe');
 
         $coordonate->update();
+
         return back()->with("status", "The contact and footer has been successfully updated !!");
+    }
+
+    public function savemessage(Request $request){
+
+        $message = new Message();
+
+        $message->receive_email = $request->input('receive_email');
+        $message->receive_email_subject = $request->input('receive_email_subject');
+        $message->receive_email_thank_you_message = $request->input('receive_email_thank_you_message');
+        $message->forget_password_message = $request->input('forget_password_message');
+
+        $message->save();
+
+        return back()->with("status", "The messages have been successfully saved !!");
+    }
+
+    public function updatemessage(Request $request, $id){
+        
+        $message = Message::find($id);
+
+        $message->receive_email = $request->input('receive_email');
+        $message->receive_email_subject = $request->input('receive_email_subject');
+        $message->receive_email_thank_you_message = $request->input('receive_email_thank_you_message');
+        $message->forget_password_message = $request->input('forget_password_message');
+
+        $message->update();
+
+        return back()->with("status", "The messages have been successfully updated !!");
+        
     }
 }
