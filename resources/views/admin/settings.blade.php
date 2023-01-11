@@ -12,15 +12,17 @@
                 <h1>Website Settings</h1>
             </div>
         </section>
-        <section class="content" style="min-height:auto;margin-bottom: -30px;">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="callout callout-success">
-                    <p>Payment Settings is updated successfully.</p>
+        @if (Session::has('status'))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-success">
+                        <p>{{Session::get('status')}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>    
+        @endif
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -39,28 +41,33 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action=" {{url('admin/updatelogo')}} " method="post" enctype="multipart/form-data">
+                                @csrf
                                 <div class="box box-info">
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Existing Photo</label>
-                                        <div class="col-sm-6" style="padding-top:6px;">
-                                            <img src="{{asset('backend/admin/uploads/logo.png')}}" class="existing-photo" style="height:80px;">
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Existing Photo</label>
+                                            <div class="col-sm-6" style="padding-top:6px;">
+                                                @if ($logo)
+                                                    <img src="{{asset('storage/logoimage/'.$logo->logo)}}" class="existing-photo" style="height:80px;">                                          
+                                                @else
+                                                    <img src="{{asset('storage/logoimage/noimage.jpg')}}" class="existing-photo" style="height:80px;">
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">New Photo</label>
+                                            <div class="col-sm-6" style="padding-top:6px;">
+                                                <input type="file" name="photo_logo" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-success pull-left" name="form1">Update Logo</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">New Photo</label>
-                                        <div class="col-sm-6" style="padding-top:6px;">
-                                            <input type="file" name="photo_logo">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form1">Update Logo</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 </div>
                             </form>
                         </div>

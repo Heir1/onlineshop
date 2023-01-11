@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Logo;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,8 @@ class AdminController extends Controller
     }
 
     public function settings(){
-        return view("admin.settings");
+        $logo = Logo::first();
+        return view("admin.settings")->with("logo", $logo);
     }
 
     public function size(){

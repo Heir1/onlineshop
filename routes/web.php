@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,3 +83,6 @@ Route::get('admin/pagesettings', [AdminController::class, 'pagesettings']);
 Route::get('admin/socialmedia', [AdminController::class, 'socialmedia']);
 Route::get('admin/subscriber', [AdminController::class, 'subscriber']);
 Route::get('admin/editprofile', [AdminController::class, 'editprofile']);
+
+// Setting Controller
+Route::post('admin/updatelogo', [SettingController::class, 'updatelogo']);
