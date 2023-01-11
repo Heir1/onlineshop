@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
+use App\Models\Coordonate;
 
 class SettingController extends Controller
 {
@@ -136,5 +137,35 @@ class SettingController extends Controller
         $favicon->update();
 
         return back()->with("status", "The favicon image is updated successfully.");       
+    }
+
+    public function savecoordonate(Request $request){
+
+        $coordonate = new Coordonate();
+
+        $coordonate->newsletter = $request->input('newsletter_on_off');
+        $coordonate->footercopyright = $request->input('footer_copyright');
+        $coordonate->contactaddress = $request->input('contact_address');
+        $coordonate->contactemail = $request->input('contact_email');
+        $coordonate->contactphone = $request->input('contact_phone');
+        $coordonate->contactmap = $request->input('contact_map_iframe');
+
+        $coordonate->save();
+        return back()->with("status", "The contact and footer has been successfully saved !!");
+    }
+
+    public function updatecoordonate(Request $request, $id){
+
+        $coordonate = Coordonate::find($id);
+
+        $coordonate->newsletter = $request->input('newsletter_on_off');
+        $coordonate->footercopyright = $request->input('footer_copyright');
+        $coordonate->contactaddress = $request->input('contact_address');
+        $coordonate->contactemail = $request->input('contact_email');
+        $coordonate->contactphone = $request->input('contact_phone');
+        $coordonate->contactmap = $request->input('contact_map_iframe');
+
+        $coordonate->update();
+        return back()->with("status", "The contact and footer has been successfully updated !!");
     }
 }

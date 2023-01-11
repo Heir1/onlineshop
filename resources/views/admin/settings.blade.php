@@ -109,56 +109,71 @@
                             </form>
                         </div>
                         <div class="tab-pane" id="tab_3">
-                            <form class="form-horizontal" action="" method="post">
+                            <form class="form-horizontal" action="{{ $coordonate ? url('admin/updatecoordonate', [$coordonate->id]) : url('admin/savecoordonate') }}" method="post">
+                                @csrf
+                                @if ($coordonate)
+                                    @method('PUT') 
+                                @endif
                                 <div class="box box-info">
-                                <div class="box-body">
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Newsletter Section </label>
-                                        <div class="col-sm-3">
-                                            <select name="newsletter_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
-                                            </select>
+                                    <div class="box-body">
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Newsletter Section </label>
+                                            <div class="col-sm-3">
+                                                <select name="newsletter_on_off" class="form-control" style="width:auto;">
+                                                    @if ($coordonate)
+                                                        @if ($coordonate->newsletter == "1")
+                                                            <option value="1" selected>On</option>
+                                                            <option value="0" >Off</option>
+                                                        @else
+                                                            <option value="0" selected>Off</option>
+                                                            <option value="1">On</option>
+                                                        @endif
+                                                    @else
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Footer - Copyright </label>
+                                            <div class="col-sm-9">
+                                                <input class="form-control" type="text" name="footer_copyright" value="{{$coordonate ? $coordonate->footercopyright : '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Contact Address </label>
+                                            <div class="col-sm-6">
+                                                <textarea class="form-control" name="contact_address" style="height:140px;">{{$coordonate ? $coordonate->contactaddress : '' }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Contact Email </label>
+                                            <div class="col-sm-6">
+                                                <input type="email" class="form-control" name="contact_email" value="{{$coordonate ? $coordonate->contactemail : '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Contact Phone Number </label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" name="contact_phone" value="{{$coordonate ? $coordonate->contactphone : '' }}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label">Contact Map iFrame </label>
+                                            <div class="col-sm-9">
+                                                <textarea class="form-control" name="contact_map_iframe" style="height:200px;">{{$coordonate ? $coordonate->contactmap : '' }}
+                                                    {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.020958405712!2d-84.39261378514685!3d39.151504939531584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841acfb8da30203%3A0x193175e741781f21!2s4293%20Simpson%20Ave%2C%20Cincinnati%2C%20OH%2045227%2C%20USA!5e0!3m2!1sen!2snp!4v1647796779407!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe> --}}
+                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="col-sm-2 control-label"></label>
+                                            <div class="col-sm-6">
+                                                <button type="submit" class="btn btn-success pull-left" name="form3"> {{$coordonate ? 'Update' : 'Save'}} </button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Footer - Copyright </label>
-                                        <div class="col-sm-9">
-                                            <input class="form-control" type="text" name="footer_copyright" value="Copyright Â© 2022 - Ecommerce Website PHP - Developed By Hammad Hassan">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Contact Address </label>
-                                        <div class="col-sm-6">
-                                            <textarea class="form-control" name="contact_address" style="height:140px;">93 Simpson Avenue
-                                            Harrisburg, PA</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Contact Email </label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" name="contact_email" value="support@ecommercephp.com">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Contact Phone Number </label>
-                                        <div class="col-sm-6">
-                                            <input type="text" class="form-control" name="contact_phone" value="+001 10 101 0010">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label">Contact Map iFrame </label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="contact_map_iframe" style="height:200px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3094.020958405712!2d-84.39261378514685!3d39.151504939531584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8841acfb8da30203%3A0x193175e741781f21!2s4293%20Simpson%20Ave%2C%20Cincinnati%2C%20OH%2045227%2C%20USA!5e0!3m2!1sen!2snp!4v1647796779407!5m2!1sen!2snp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="" class="col-sm-2 control-label"></label>
-                                        <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form3">Update</button>
-                                        </div>
-                                    </div>
-                                </div>
                                 </div>
                             </form>
                         </div>

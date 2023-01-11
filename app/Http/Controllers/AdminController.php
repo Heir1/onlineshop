@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Logo;
 use App\Models\Favicon;
+use App\Models\Coordonate;
 
 class AdminController extends Controller
 {
@@ -17,7 +18,8 @@ class AdminController extends Controller
     public function settings(){
         $logo = Logo::first();
         $favicon = Favicon::first();
-        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon);
+        $coordonate = Coordonate::first();
+        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate);
     }
 
     public function size(){
