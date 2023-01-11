@@ -8,6 +8,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Coordonate;
 use App\Models\Message;
+use App\Models\Countproduct;
 
 class SettingController extends Controller
 {
@@ -197,6 +198,33 @@ class SettingController extends Controller
         $message->update();
 
         return back()->with("status", "The messages have been successfully updated !!");
-        
+
     }
+
+    public function savecountproduct(Request $request){
+
+        $countproduct = new Countproduct();
+
+        $countproduct->total_featured_product_home = $request->input('total_featured_product_home');
+        $countproduct->total_latest_product_home = $request->input('total_latest_product_home');
+        $countproduct->total_popular_product_home = $request->input('total_popular_product_home');
+
+        $countproduct->save();
+
+        return back()->with("status", "The count products featured have been successfully saved !!");
+    }
+
+    public function updatecountproduct(Request $request, $id){
+        
+        $countproduct = Countproduct::find($id);
+
+        $countproduct->total_featured_product_home = $request->input('total_featured_product_home');
+        $countproduct->total_latest_product_home = $request->input('total_latest_product_home');
+        $countproduct->total_popular_product_home = $request->input('total_popular_product_home');
+
+        $countproduct->update();
+
+        return back()->with("status", "The count products featured have been successfully updated !!");
+    }
+
 }

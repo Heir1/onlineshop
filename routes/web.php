@@ -93,3 +93,5 @@ Route::post('admin/savecoordonate', [SettingController::class, 'savecoordonate']
 Route::put('admin/updatecoordonate/{id}', [SettingController::class, 'updatecoordonate']);
 Route::post('admin/savemessage', [SettingController::class, 'savemessage']);
 Route::put('admin/updatemessage/{id}', [SettingController::class, 'updatemessage']);
+Route::post('admin/savecountproduct', [SettingController::class, 'savecountproduct']);
+Route::put('admin/updatecountproduct/{id}', [SettingController::class, 'updatecountproduct']);

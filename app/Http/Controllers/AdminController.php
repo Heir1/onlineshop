@@ -7,6 +7,7 @@ use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Coordonate;
 use App\Models\Message;
+use App\Models\Countproduct;
 
 class AdminController extends Controller
 {
@@ -22,8 +23,9 @@ class AdminController extends Controller
         $favicon = Favicon::first();
         $coordonate = Coordonate::first();
         $message = Message::first();
+        $countproduct = Countproduct::first();
 
-        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate)->with("message",$message);
+        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate)->with("message",$message)->with("countproduct",$countproduct);
     }
 
     public function size(){
