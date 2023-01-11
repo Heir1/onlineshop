@@ -85,4 +85,7 @@ Route::get('admin/subscriber', [AdminController::class, 'subscriber']);
 Route::get('admin/editprofile', [AdminController::class, 'editprofile']);
 
 // Setting Controller
-Route::post('admin/updatelogo', [SettingController::class, 'updatelogo']);
+Route::post('admin/savelogo', [SettingController::class, 'savelogo']);
+Route::put('admin/updatelogo/{id}', [SettingController::class, 'updatelogo']);
+Route::post('admin/savefavicon', [SettingController::class, 'savefavicon']);
+Route::put('admin/updatefavicon/{id}', [SettingController::class, 'updatefavicon']);

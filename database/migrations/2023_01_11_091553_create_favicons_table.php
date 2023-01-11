@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('favicons', function (Blueprint $table) {
             $table->id();
+            $table->string("photo_favicon");
             $table->timestamps();
         });
     }
