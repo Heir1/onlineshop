@@ -95,3 +95,16 @@ Route::post('admin/savemessage', [SettingController::class, 'savemessage']);
 Route::put('admin/updatemessage/{id}', [SettingController::class, 'updatemessage']);
 Route::post('admin/savecountproduct', [SettingController::class, 'savecountproduct']);
 Route::put('admin/updatecountproduct/{id}', [SettingController::class, 'updatecountproduct']);
+Route::post('admin/savehomesetting', [SettingController::class, 'savehomesetting']);
+Route::put('admin/updatehomesetting/{id}', [SettingController::class, 'updatehomesetting']);
+Route::post('admin/savemetadonnee', [SettingController::class, 'savemetadonnee']);
+Route::put('admin/updatemetadonnee/{id}', [SettingController::class, 'updatemetadonnee']);
+Route::post('admin/savefeaturedproduct', [SettingController::class, 'savefeaturedproduct']);
+Route::put('admin/updatefeaturedproduct/{id}', [SettingController::class, 'updatefeaturedproduct']);
+Route::post('admin/savelatestproduct', [SettingController::class, 'savelatestproduct']);
+Route::put('admin/updatelatestproduct/{id}', [SettingController::class, 'updatelatestproduct']);
+Route::post('admin/savepopularproduct', [SettingController::class, 'savepopularproduct']);
+Route::put('admin/updatepopularproduct/{id}', [SettingController::class, 'updatepopularproduct']);
+Route::post('admin/savenewsletter', [SettingController::class, 'savenewsletter']);
+Route::put('admin/updatenewsletter/{id}', [SettingController::class, 'updatenewsletter']);
+

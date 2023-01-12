@@ -9,6 +9,13 @@ use App\Models\Favicon;
 use App\Models\Coordonate;
 use App\Models\Message;
 use App\Models\Countproduct;
+use App\Models\Homesetting;
+use App\Models\Metadonnee;
+use App\Models\Featuredproduct;
+use App\Models\Latestproduct;
+use App\Models\Popularproduct;
+use App\Models\Newsletter;
+
 
 class SettingController extends Controller
 {
@@ -226,5 +233,166 @@ class SettingController extends Controller
 
         return back()->with("status", "The count products featured have been successfully updated !!");
     }
+
+    public function savehomesetting(Request $request){
+        
+        $homesetting = new homeSetting();
+
+        $homesetting->home_service_on_off = $request->input('home_service_on_off');
+        $homesetting->home_welcome_on_off = $request->input('home_welcome_on_off');
+        $homesetting->home_featured_product_on_off = $request->input('home_featured_product_on_off');
+        $homesetting->home_latest_product_on_off = $request->input('home_latest_product_on_off');
+        $homesetting->home_popular_product_on_off = $request->input('home_popular_product_on_off');
+
+        $homesetting->save();
+
+        return back()->with("status", "The home setting has been successfully saved !!");
+
+    }
+
+    public function updatehomesetting(Request $request, $id){
+        
+        $homesetting = homeSetting::find($id);
+
+        $homesetting->home_service_on_off = $request->input('home_service_on_off');
+        $homesetting->home_welcome_on_off = $request->input('home_welcome_on_off');
+        $homesetting->home_featured_product_on_off = $request->input('home_featured_product_on_off');
+        $homesetting->home_latest_product_on_off = $request->input('home_latest_product_on_off');
+        $homesetting->home_popular_product_on_off = $request->input('home_popular_product_on_off');
+
+        $homesetting->update();
+
+        return back()->with("status", "The home setting has been successfully updated !!");
+
+    }
+
+    public function savemetadonnee(Request $request){
+
+        $metadonnee = new Metadonnee();
+
+        $metadonnee->meta_title_home = $request->input('meta_title_home');
+        $metadonnee->meta_keyword_home = $request->input('meta_keyword_home');
+        $metadonnee->meta_description_home = $request->input('meta_description_home');
+
+        $metadonnee->save();
+
+        return back()->with("status", "The metadonnee has been successfully saved !!");
+
+    }
+
+    public function updatemetadonnee(Request $request, $id){
+
+        $metadonnee = Metadonnee::find($id);
+
+        $metadonnee->meta_title_home = $request->input('meta_title_home');
+        $metadonnee->meta_keyword_home = $request->input('meta_keyword_home');
+        $metadonnee->meta_description_home = $request->input('meta_description_home');
+
+        $metadonnee->update();
+
+        return back()->with("status", "The metadonnee has been successfully updated !!");
+
+    }
+
+    public function savefeaturedproduct(Request $request){
+
+        $featuredproduct = new Featuredproduct();
+
+        $featuredproduct->featured_product_title = $request->input('featured_product_title');
+        $featuredproduct->featured_product_subtitle = $request->input('featured_product_subtitle');
+
+        $featuredproduct->save();
+
+        return back()->with("status", "The featured product has been successfully saved !!");
+
+    }
+
+    public function updatefeaturedproduct(Request $request, $id){
+
+        $featuredproduct = Featuredproduct::find($id);
+
+        $featuredproduct->featured_product_title = $request->input('featured_product_title');
+        $featuredproduct->featured_product_subtitle = $request->input('featured_product_subtitle');
+
+        $featuredproduct->update();
+
+        return back()->with("status", "The featured product has been successfully updated !!");
+
+    }
+
+    public function savelatestproduct(Request $request){
+
+        $latestproduct = new Latestproduct();
+
+        $latestproduct->latest_product_title = $request->input('latest_product_title');
+        $latestproduct->latest_product_subtitle = $request->input('latest_product_subtitle');
+
+        $latestproduct->save();
+
+        return back()->with("status", "The latest product has been successfully saved !!");
+
+    }
+
+    public function updatelatestproduct(Request $request, $id){
+        
+        $latestproduct = Latestproduct::find($id);
+
+        $latestproduct->latest_product_title = $request->input('latest_product_title');
+        $latestproduct->latest_product_subtitle = $request->input('latest_product_subtitle');
+
+        $latestproduct->update();
+
+        return back()->with("status", "The latest product has been successfully updated !!");
+
+    }
+
+    public function savepopularproduct(Request $request){
+        
+        $popularproduct = new Popularproduct();
+        
+        $popularproduct->popular_product_title = $request->input('popular_product_title');
+        $popularproduct->popular_product_subtitle = $request->input('popular_product_subtitle');
+
+        $popularproduct->save();
+
+        return back()->with("status", "The popular product has been successfully saved !!");
+
+    }
+
+    public function updatepopularproduct(Request $request, $id){
+               
+        $popularproduct = Popularproduct::find($id);
+        
+        $popularproduct->popular_product_title = $request->input('popular_product_title');
+        $popularproduct->popular_product_subtitle = $request->input('popular_product_subtitle');
+
+        $popularproduct->update();
+
+        return back()->with("status", "The popular product has been successfully updated !!");
+
+    }
+
+    public function savenewsletter(Request $request){
+        
+        $newsletter = new Newsletter();
+        $newsletter->newsletter_text = $request->input('newsletter_text');
+
+        $newsletter->save();
+
+        return back()->with("status", "The newsletter has been successfully saved !!");
+
+    }
+
+    public function updatenewsletter(Request $request, $id){
+
+        $newsletter = Newsletter::find($id);
+        $newsletter->newsletter_text = $request->input('newsletter_text');
+
+        $newsletter->update();
+
+        return back()->with("status", "The newsletter has been successfully updated !!");
+
+    }
+
 
 }

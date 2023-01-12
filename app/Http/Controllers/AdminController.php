@@ -8,6 +8,12 @@ use App\Models\Favicon;
 use App\Models\Coordonate;
 use App\Models\Message;
 use App\Models\Countproduct;
+use App\Models\Homesetting;
+use App\Models\Metadonnee;
+use App\Models\Featuredproduct;
+use App\Models\Latestproduct;
+use App\Models\Popularproduct;
+use App\Models\Newsletter;
 
 class AdminController extends Controller
 {
@@ -24,8 +30,25 @@ class AdminController extends Controller
         $coordonate = Coordonate::first();
         $message = Message::first();
         $countproduct = Countproduct::first();
+        $homesetting = Homesetting::first();
+        $metadonnee = Metadonnee::first();
+        $featuredproduct = Featuredproduct::first();
+        $latestproduct = Latestproduct::first();
+        $popularproduct = Popularproduct::first();
+        $newsletter = Newsletter::first();
 
-        return view("admin.settings")->with("logo", $logo)->with("favicon", $favicon)->with("coordonate", $coordonate)->with("message",$message)->with("countproduct",$countproduct);
+        return view("admin.settings")
+                    ->with("logo", $logo)
+                    ->with("favicon", $favicon)
+                    ->with("coordonate", $coordonate)
+                    ->with("message",$message)
+                    ->with("countproduct",$countproduct)
+                    ->with("homesetting", $homesetting)
+                    ->with("metadonnee",$metadonnee)
+                    ->with("featuredproduct", $featuredproduct)
+                    ->with("latestproduct", $latestproduct)
+                    ->with("popularproduct", $popularproduct)
+                    ->with("newsletter", $newsletter);
     }
 
     public function size(){

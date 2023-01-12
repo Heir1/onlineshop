@@ -138,7 +138,7 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-2 control-label">Footer - Copyright </label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" type="text" name="footer_copyright" value="{{$coordonate ? $coordonate->footercopyright : '' }}">
+                                                <input class="form-control" type="text" name="footer_copyright" value="{{$coordonate ? $coordonate->footercopyright : '' }}" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -150,13 +150,13 @@
                                         <div class="form-group">
                                             <label for="" class="col-sm-2 control-label">Contact Email </label>
                                             <div class="col-sm-6">
-                                                <input type="email" class="form-control" name="contact_email" value="{{$coordonate ? $coordonate->contactemail : '' }}">
+                                                <input type="email" class="form-control" name="contact_email" value="{{$coordonate ? $coordonate->contactemail : '' }} required">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="col-sm-2 control-label">Contact Phone Number </label>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control" name="contact_phone" value="{{$coordonate ? $coordonate->contactphone : '' }}">
+                                                <input type="text" class="form-control" name="contact_phone" value="{{$coordonate ? $coordonate->contactphone : '' }}" required>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -188,13 +188,13 @@
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Contact Email Address</label>
                                         <div class="col-sm-4">
-                                            <input type="email" class="form-control" name="receive_email" value="{{$message ? $message->receive_email : ''}}">
+                                            <input type="email" class="form-control" name="receive_email" value="{{$message ? $message->receive_email : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Contact Email Subject</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="receive_email_subject" value="{{$message ? $message->receive_email_subject : ''}}">
+                                            <input type="text" class="form-control" name="receive_email_subject" value="{{$message ? $message->receive_email_subject : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -230,19 +230,19 @@
                                     <div class="form-group">
                                         <label for="" class="col-sm-4 control-label">Home Page (How many featured product?)<span>*</span></label>
                                         <div class="col-sm-2">
-                                            <input type="number" class="form-control" name="total_featured_product_home" value="{{$countproduct ? $countproduct->total_featured_product_home : '' }}">
+                                            <input type="number" class="form-control" name="total_featured_product_home" value="{{$countproduct ? $countproduct->total_featured_product_home : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-4 control-label">Home Page (How many latest product?)<span>*</span></label>
                                         <div class="col-sm-2">
-                                            <input type="number" class="form-control" name="total_latest_product_home" value="{{$countproduct ? $countproduct->total_latest_product_home : '' }}">
+                                            <input type="number" class="form-control" name="total_latest_product_home" value="{{$countproduct ? $countproduct->total_latest_product_home : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-4 control-label">Home Page (How many popular product?)<span>*</span></label>
                                         <div class="col-sm-2">
-                                            <input type="number" class="form-control" name="total_popular_product_home" value="{{$countproduct ? $countproduct->total_popular_product_home : '' }}">
+                                            <input type="number" class="form-control" name="total_popular_product_home" value="{{$countproduct ? $countproduct->total_popular_product_home : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -257,15 +257,29 @@
                         </div>
                         <div class="tab-pane" id="tab_6">
                             <h3>Sections On and Off</h3>
-                            <form class="form-horizontal" action="" method="post">
+                            <form class="form-horizontal" action="{{ $homesetting ? url('admin/updatehomesetting', [$homesetting->id]) : url('admin/savehomesetting') }}" method="post">
+                                @csrf
+                                @if ($homesetting)    
+                                    @method('PUT')
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Service Section </label>
                                         <div class="col-sm-4">
                                             <select name="home_service_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
+                                                @if ($homesetting)
+                                                    @if ($homesetting->home_service_on_off == "1")
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @else
+                                                        <option value="0" selected>Off</option>
+                                                        <option value="1">On</option>
+                                                    @endif
+                                                @else
+                                                    <option value="1" selected>On</option>
+                                                    <option value="0" >Off</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -273,8 +287,18 @@
                                         <label for="" class="col-sm-3 control-label">Welcome Section </label>
                                         <div class="col-sm-4">
                                             <select name="home_welcome_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
+                                                @if ($homesetting)
+                                                    @if ($homesetting->home_welcome_on_off == "1")
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @else
+                                                        <option value="0" selected>Off</option>
+                                                        <option value="1">On</option>
+                                                    @endif
+                                                @else
+                                                    <option value="1" selected>On</option>
+                                                    <option value="0" >Off</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -282,8 +306,18 @@
                                         <label for="" class="col-sm-3 control-label">Featured Product Section </label>
                                         <div class="col-sm-4">
                                             <select name="home_featured_product_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
+                                                @if ($homesetting)
+                                                    @if ($homesetting->home_featured_product_on_off == "1")
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @else
+                                                        <option value="0" selected>Off</option>
+                                                        <option value="1">On</option>
+                                                    @endif
+                                                @else
+                                                    <option value="1" selected>On</option>
+                                                    <option value="0" >Off</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -291,8 +325,18 @@
                                         <label for="" class="col-sm-3 control-label">Latest Product Section </label>
                                         <div class="col-sm-4">
                                             <select name="home_latest_product_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
+                                                @if ($homesetting)
+                                                    @if ($homesetting->home_latest_product_on_off == "1")
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @else
+                                                        <option value="0" selected>Off</option>
+                                                        <option value="1">On</option>
+                                                    @endif
+                                                @else
+                                                    <option value="1" selected>On</option>
+                                                    <option value="0" >Off</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -300,46 +344,60 @@
                                         <label for="" class="col-sm-3 control-label">Popular Product Section </label>
                                         <div class="col-sm-4">
                                             <select name="home_popular_product_on_off" class="form-control" style="width:auto;">
-                                            <option value="1" selected>On</option>
-                                            <option value="0" >Off</option>
+                                                @if ($homesetting)
+                                                    @if ($homesetting->home_popular_product_on_off == "1")
+                                                        <option value="1" selected>On</option>
+                                                        <option value="0" >Off</option>
+                                                    @else
+                                                        <option value="0" selected>Off</option>
+                                                        <option value="1">On</option>
+                                                    @endif
+                                                @else
+                                                    <option value="1" selected>On</option>
+                                                    <option value="0" >Off</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6_0">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6_0">{{$homesetting ? 'Update' : 'Save'}}</button>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </form>
                             <h3>Meta Section</h3>
-                            <form class="form-horizontal" action="" method="post">
+                            <form class="form-horizontal" action="{{ $metadonnee ? url('admin/updatemetadonnee', [$metadonnee->id]) : url('admin/savemetadonnee') }}" method="post">
+                                @csrf
+                                @if ($metadonnee)
+                                    @method('PUT')
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Title </label>
                                         <div class="col-sm-8">
-                                            <input type="text" name="meta_title_home" class="form-control" value="Ecommerce PHP">
+                                            <input type="text" name="meta_title_home" class="form-control" value="{{ $metadonnee ? $metadonnee->meta_title_home : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Keyword </label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" name="meta_keyword_home" style="height:100px;">online fashion store, garments shop, online garments</textarea>
+                                            <textarea class="form-control" name="meta_keyword_home" style="height:100px;">{{ $metadonnee ? $metadonnee->meta_keyword_home : '' }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Meta Description </label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" name="meta_description_home" style="height:200px;">ecommerce php project with mysql database</textarea>
+                                            <textarea class="form-control" name="meta_description_home" style="height:200px;">{{ $metadonnee ? $metadonnee->meta_description_home : '' }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6"> {{ $metadonnee ? 'Update' : 'Save'}} </button>
                                         </div>
                                     </div>
                                 </div>
@@ -347,94 +405,110 @@
                             </form>
                             
                             <h3>Featured Product Section</h3>
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="{{ $featuredproduct ? url('admin/updatefeaturedproduct', [$featuredproduct->id]) : url('admin/savefeaturedproduct') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @if ($featuredproduct)
+                                    @method('PUT') 
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Featured Product Title<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="featured_product_title" value="Featured Products">
+                                            <input type="text" class="form-control" name="featured_product_title" value="{{$featuredproduct ? $featuredproduct->featured_product_title : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Featured Product SubTitle<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="featured_product_subtitle" value="Our list on Top Featured Products">
+                                            <input type="text" class="form-control" name="featured_product_subtitle" value="{{$featuredproduct ? $featuredproduct->featured_product_subtitle : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6_4">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6_4"> {{$featuredproduct ? 'Update' : 'Save'}}</button>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </form>
                             <h3>Latest Product Section</h3>
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="{{ $latestproduct ? url('admin/updatelatestproduct', [$latestproduct->id]) : url('admin/savelatestproduct') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @if ($latestproduct)
+                                    @method('PUT')
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Latest Product Title<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="latest_product_title" value="Latest Products">
+                                            <input type="text" class="form-control" name="latest_product_title" value="{{$latestproduct ? $latestproduct->latest_product_title : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Latest Product SubTitle<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="latest_product_subtitle" value="Our list of recently added products">
+                                            <input type="text" class="form-control" name="latest_product_subtitle" value="{{$latestproduct ? $latestproduct->latest_product_subtitle : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6_5">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6_5">{{$latestproduct ? 'Update' : 'Save'}}</button>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </form>
                             <h3>Popular Product Section</h3>
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action="{{ $popularproduct ? url('admin/updatepopularproduct', [$popularproduct->id]) : url('admin/savepopularproduct') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @if ($popularproduct)
+                                    @method('PUT')
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Popular Product Title<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="popular_product_title" value="Popular Products">
+                                            <input type="text" class="form-control" name="popular_product_title" value="{{$popularproduct ? $popularproduct->popular_product_title : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Popular Product SubTitle<span>*</span></label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" name="popular_product_subtitle" value="Popular products based on customer's choice">
+                                            <input type="text" class="form-control" name="popular_product_subtitle" value="{{$popularproduct ? $popularproduct->popular_product_subtitle : ''}}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6_6">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6_6">{{$popularproduct ? 'Update' : 'Save'}}</button>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </form>
                             <h3>Newsletter Section</h3>
-                            <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+                            <form class="form-horizontal" action=" {{ $newsletter ? url('admin/updatenewsletter', [$newsletter->id]) : url('admin/savenewsletter') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                @if ($newsletter)
+                                    @method('PUT')  
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label">Newsletter Text</label>
                                         <div class="col-sm-8">
-                                            <textarea name="newsletter_text" class="form-control" cols="30" rows="10" style="height: 120px;">Sign-up to our newsletter for latest promotions and discounts.</textarea>
+                                            <textarea name="newsletter_text" class="form-control" cols="30" rows="10" style="height: 120px;" required> {{$newsletter ? $newsletter->newsletter_text : '' }} </textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form6_3">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form6_3">{{$newsletter ? 'Update' : 'Save'}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -453,7 +527,7 @@
                                     </td>
                                     <td style="width:50%">
                                         <h4>Change Login Page Banner</h4>
-                                        Select Photo<input type="file" name="photo">
+                                        Select Photo<input type="file" name="photo" required>
                                         <input type="submit" class="btn btn-primary btn-xs" value="Change" style="margin-top:10px;" name="form7_1">
                                     </td>
                                 </form>
