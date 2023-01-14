@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('paymentsettings', function (Blueprint $table) {
             $table->id();
+            $table->string("paypal_email");
+            $table->string("bank_detail");
             $table->timestamps();
         });
     }

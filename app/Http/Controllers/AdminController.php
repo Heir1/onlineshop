@@ -17,6 +17,7 @@ use App\Models\Newsletter;
 use App\Models\Loginbanner;
 use App\Models\Registbanner;
 use App\Models\Passwordbanner;
+use App\Models\Paymentsetting;
 
 class AdminController extends Controller
 {
@@ -42,6 +43,7 @@ class AdminController extends Controller
         $loginbanner = Loginbanner::first();
         $registbanner = Registbanner::first();
         $passwordbanner = Passwordbanner::first();
+        $paymentsetting = Paymentsetting::first();
 
         return view("admin.settings")
                     ->with("logo", $logo)
@@ -57,7 +59,8 @@ class AdminController extends Controller
                     ->with("newsletter", $newsletter)
                     ->with("loginbanner", $loginbanner)
                     ->with("registbanner", $registbanner)
-                    ->with("passwordbanner", $passwordbanner);
+                    ->with("passwordbanner", $passwordbanner)
+                    ->with("paymentsetting", $paymentsetting);
     }
 
     public function size(){

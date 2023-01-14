@@ -18,7 +18,7 @@ use App\Models\Newsletter;
 use App\Models\Loginbanner;
 use App\Models\Registbanner;
 use App\Models\Passwordbanner;
-
+use App\Models\Paymentsetting;
 
 class SettingController extends Controller
 {
@@ -587,6 +587,38 @@ class SettingController extends Controller
 
         return back()->with("status", "The password banner image is updated successfully.");
 
+    }
+
+    public function savepaymentsetting(Request $request){
+
+        $this->validate($request, [
+            'paypal_email' => 'required',
+            'bank_detail' => 'required'
+        ]);
+
+        $paymentsetting = new Paymentsetting();
+        $paymentsetting->paypal_email = $request->input('paypal_email');
+        $paymentsetting->bank_detail = $request->input('bank_detail');
+
+        $paymentsetting->save();
+
+        return back()->with("status", "The payment setting has been successfully saved !!! ");
+
+    }
+
+    public function updatepaymentsetting(Request $request, $id){
+        $this->validate($request, [
+            'paypal_email' => 'required',
+            'bank_detail' => 'required'
+        ]);
+
+        $paymentsetting = Paymentsetting::find($id);
+        $paymentsetting->paypal_email = $request->input('paypal_email');
+        $paymentsetting->bank_detail = $request->input('bank_detail');
+
+        $paymentsetting->update();
+
+        return back()->with("status", "The payment setting has been successfully updated !!! ");
     }
 
 }

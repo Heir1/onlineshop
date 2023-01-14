@@ -113,5 +113,6 @@ Route::post('admin/saveregistbanner', [SettingController::class, 'saveregistbann
 Route::put('admin/updateregistbanner/{id}', [SettingController::class, 'updateregistbanner']);
 Route::post('admin/savepasswordbanner', [SettingController::class, 'savepasswordbanner']);
 Route::put('admin/updatepasswordbanner/{id}', [SettingController::class, 'updatepasswordbanner']);
-
+Route::post('admin/savepaymentsetting', [SettingController::class, 'savepaymentsetting']);
+Route::put('admin/updatepaymentsetting/{id}', [SettingController::class, 'updatepaymentsetting']);
 

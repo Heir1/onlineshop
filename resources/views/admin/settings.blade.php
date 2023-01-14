@@ -676,28 +676,29 @@
                         </div>
                         <!-- PAYMENT METHODS TAB -->
                         <div class="tab-pane" id="tab_9">
-                            <form class="form-horizontal" action="" method="post">
+                            <form class="form-horizontal" action=" {{ $paymentsetting ? url('admin/updatepaymentsetting', [$paymentsetting->id]) :  url('admin/savepaymentsetting') }} " method="post">
+                                @csrf
+                                @if ($paymentsetting)
+                                    @method('PUT')
+                                @endif
                                 <div class="box box-info">
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="" class="col-sm-2 control-label">PayPal - Business Email </label>
                                         <div class="col-sm-5">
-                                            <input type="text" name="paypal_email" class="form-control" value="admin@ecom.com">
+                                            <input type="email" name="paypal_email" class="form-control" value="{{ $paymentsetting ? $paymentsetting->paypal_email : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-2 control-label">Bank Information </label>
                                         <div class="col-sm-5">
-                                            <textarea name="bank_detail" class="form-control" cols="30" rows="10">Bank Name: WestView Bank
-                                            Account Number: CA100270589600
-                                            Branch Name: CA Branch
-                                            Country: USA</textarea>
+                                            <textarea name="bank_detail" class="form-control" cols="30" rows="10" required>{{ $paymentsetting ? $paymentsetting->bank_detail : '' }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="" class="col-sm-2 control-label"></label>
                                         <div class="col-sm-6">
-                                            <button type="submit" class="btn btn-success pull-left" name="form9">Update</button>
+                                            <button type="submit" class="btn btn-success pull-left" name="form9"> {{ $paymentsetting ? 'Update' : 'Save' }} </button>
                                         </div>
                                     </div>
                                 </div>
