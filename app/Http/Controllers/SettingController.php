@@ -15,6 +15,9 @@ use App\Models\Featuredproduct;
 use App\Models\Latestproduct;
 use App\Models\Popularproduct;
 use App\Models\Newsletter;
+use App\Models\Loginbanner;
+use App\Models\Registbanner;
+use App\Models\Passwordbanner;
 
 
 class SettingController extends Controller
@@ -394,5 +397,196 @@ class SettingController extends Controller
 
     }
 
+    public function saveloginbanner(Request $request){
+
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $loginbanner = new Loginbanner();
+        $loginbanner->photo = $fileNameToStore;
+
+        $loginbanner->save();
+
+        return back()->with("status", "The login banner image is saved successfully.");
+    
+    }
+
+    public function updateloginbanner(Request $request, $id){
+        
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        $loginbanner = Loginbanner::find($id);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : deleting old image
+        Storage::delete("public/banners/$loginbanner->photo");
+
+        // 6 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $loginbanner->photo = $fileNameToStore;
+
+        $loginbanner->update();
+
+        return back()->with("status", "The login banner image is updated successfully.");
+
+    }
+
+    public function saveregistbanner(Request $request){
+        
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $registbanner = new Registbanner();
+        $registbanner->photo = $fileNameToStore;
+
+        $registbanner->save();
+
+        return back()->with("status", "The login banner image is saved successfully.");
+
+    }
+
+    public function updateregistbanner(Request $request, $id){
+
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        $registbanner = Registbanner::find($id);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : deleting old image
+        Storage::delete("public/banners/$registbanner->photo");
+
+        // 6 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $registbanner->photo = $fileNameToStore;
+
+        $registbanner->update();
+
+        return back()->with("status", "The register banner image is updated successfully.");
+
+    }
+
+    public function savepasswordbanner(Request $request){
+        
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $passwordbanner = new Passwordbanner();
+        $passwordbanner->photo = $fileNameToStore;
+
+        $passwordbanner->save();
+
+        return back()->with("status", "The password banner image is saved successfully.");
+
+    }
+
+    public function updatepasswordbanner(Request $request, $id){
+
+        $this->validate($request, [
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        $passwordbanner = Passwordbanner::find($id);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : deleting old image
+        Storage::delete("public/banners/$passwordbanner->photo");
+
+        // 6 : uploading file
+        $path = $request->file('photo')->storeAs('public/banners', $fileNameToStore);
+
+        $passwordbanner->photo = $fileNameToStore;
+
+        $passwordbanner->update();
+
+        return back()->with("status", "The password banner image is updated successfully.");
+
+    }
 
 }

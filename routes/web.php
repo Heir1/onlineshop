@@ -107,4 +107,11 @@ Route::post('admin/savepopularproduct', [SettingController::class, 'savepopularp
 Route::put('admin/updatepopularproduct/{id}', [SettingController::class, 'updatepopularproduct']);
 Route::post('admin/savenewsletter', [SettingController::class, 'savenewsletter']);
 Route::put('admin/updatenewsletter/{id}', [SettingController::class, 'updatenewsletter']);
+Route::post('admin/saveloginbanner', [SettingController::class, 'saveloginbanner']);
+Route::put('admin/updateloginbanner/{id}', [SettingController::class, 'updateloginbanner']);
+Route::post('admin/saveregistbanner', [SettingController::class, 'saveregistbanner']);
+Route::put('admin/updateregistbanner/{id}', [SettingController::class, 'updateregistbanner']);
+Route::post('admin/savepasswordbanner', [SettingController::class, 'savepasswordbanner']);
+Route::put('admin/updatepasswordbanner/{id}', [SettingController::class, 'updatepasswordbanner']);
+
 

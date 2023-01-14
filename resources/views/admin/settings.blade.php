@@ -518,46 +518,81 @@
                         <div class="tab-pane" id="tab_7">
                             <table class="table table-bordered">
                                 <tr>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action=" {{$loginbanner ? url('admin/updateloginbanner', [$loginbanner->id]) : url('admin/saveloginbanner') }} " method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @if ($loginbanner)
+                                        @method('PUT')   
+                                    @endif
+
                                     <td style="width:50%">
                                         <h4>Existing Login Page Banner</h4>
-                                        <p> 
-                                            <img src="{{asset('backend/admin/uploads/banner_login.jpg')}}" alt="" style="width: 100%;height:auto;"> 
-                                        </p>
+                                        @if ($loginbanner)
+                                            <p>
+                                                <img src="{{asset('storage/banners/'.$loginbanner->photo)}}" class="existing-photo" style="width: 100%;height:auto;"> 
+                                            </p>
+                                        @else
+                                            <p>
+                                                <img src="{{asset('storage/logoimage/noimage.jpg')}}" class="existing-photo" style="width: 20%;height:100px;">
+                                            </p>
+                                        @endif
                                     </td>
                                     <td style="width:50%">
                                         <h4>Change Login Page Banner</h4>
                                         Select Photo<input type="file" name="photo" required>
-                                        <input type="submit" class="btn btn-primary btn-xs" value="Change" style="margin-top:10px;" name="form7_1">
+                                        <input type="submit" class="btn btn-primary btn-xs" value="{{$loginbanner ? 'Change' : 'save'}}" style="margin-top:10px;" name="form7_1">
                                     </td>
                                 </form>
                                 </tr>
                                 <tr>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action=" {{ $registbanner ? url('admin/updateregistbanner', [$registbanner->id] ) : url('admin/saveregistbanner') }} " method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @if ($registbanner)
+                                        @method('PUT') 
+                                    @endif
                                     <td style="width:50%">
                                         <h4>Existing Registration Page Banner</h4>
-                                        <p>  
-                                            <img src="{{asset('backend/admin/uploads/banner_registration.jpg')}}" alt="" style="width: 100%;height:auto;">  
-                                        </p>
+
+                                        @if ($registbanner)
+                                            <p>
+                                                <img src="{{asset('storage/banners/'.$registbanner->photo)}}" class="existing-photo" style="width: 100%;height:auto;"> 
+                                            </p>
+                                        @else
+                                            <p>
+                                                <img src="{{asset('storage/logoimage/noimage.jpg')}}" class="existing-photo" style="width: 20%;height:100px;">
+                                            </p>
+                                        @endif
+
                                     </td>
                                     <td style="width:50%">
                                         <h4>Change Registration Page Banner</h4>
-                                        Select Photo<input type="file" name="photo">
+                                        Select Photo<input type="file" name="photo" required>
                                         <input type="submit" class="btn btn-primary btn-xs" value="Change" style="margin-top:10px;" name="form7_2">
                                     </td>
                                 </form>
                                 </tr>
                                 <tr>
-                                <form action="" method="post" enctype="multipart/form-data">
+                                <form action=" {{ $passwordbanner ? url('admin/updatepasswordbanner', [$passwordbanner->id] ) :  url('admin/savepasswordbanner') }} " method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @if ($passwordbanner)
+                                        @method('PUT')
+                                    @endif
                                     <td style="width:50%">
                                         <h4>Existing Forget Password Page Banner</h4>
-                                        <p>   
-                                            <img src="{{asset('backend/admin/uploads/banner_forget_password.jpg')}}" alt="" style="width: 100%;height:auto;">   
-                                        </p>
+
+                                        @if ($passwordbanner)
+                                            <p>
+                                                <img src="{{asset('storage/banners/'.$passwordbanner->photo)}}" class="existing-photo" style="width: 100%;height:auto;"> 
+                                            </p>
+                                        @else
+                                            <p>
+                                                <img src="{{asset('storage/logoimage/noimage.jpg')}}" class="existing-photo" style="width: 20%;height:100px;">
+                                            </p>
+                                        @endif
+
                                     </td>
                                     <td style="width:50%">
                                         <h4>Change Forget Password Page Banner</h4>
-                                        Select Photo<input type="file" name="photo">
+                                        Select Photo<input type="file" name="photo" required>
                                         <input type="submit" class="btn btn-primary btn-xs" value="Change" style="margin-top:10px;" name="form7_3">
                                     </td>
                                 </form>
