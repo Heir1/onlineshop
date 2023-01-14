@@ -18,6 +18,7 @@ use App\Models\Loginbanner;
 use App\Models\Registbanner;
 use App\Models\Passwordbanner;
 use App\Models\Paymentsetting;
+use App\Models\Size;
 
 class AdminController extends Controller
 {
@@ -64,15 +65,15 @@ class AdminController extends Controller
     }
 
     public function size(){
-        return view("admin.size");
+
+        $sizes = Size::get();
+        $increment = 1;
+        return view("admin.size")->with("sizes", $sizes)->with("increment", $increment);
+
     }
 
     public function addsize(){
         return view("admin.addsize");
-    }
-
-    public function editsize(){
-        return view("admin.editsize");
     }
 
     public function color(){

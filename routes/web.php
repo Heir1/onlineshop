@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +47,6 @@ Route::get('admin', [AdminController::class, 'admindashboard']);
 Route::get('admin/settings', [AdminController::class, 'settings']);
 Route::get('admin/size', [AdminController::class, 'size']);
 Route::get('admin/addsize', [AdminController::class, 'addsize']);
-Route::get('admin/editsize', [AdminController::class, 'editsize']);
 Route::get('admin/color', [AdminController::class, 'color']);
 Route::get('admin/addcolor', [AdminController::class, 'addcolor']);
 Route::get('admin/editcolor', [AdminController::class, 'editcolor']);
@@ -116,3 +116,8 @@ Route::put('admin/updatepasswordbanner/{id}', [SettingController::class, 'update
 Route::post('admin/savepaymentsetting', [SettingController::class, 'savepaymentsetting']);
 Route::put('admin/updatepaymentsetting/{id}', [SettingController::class, 'updatepaymentsetting']);
 
+// ShopController
+Route::post('admin/savesize', [ShopController::class, 'savesize']);
+Route::get('admin/editsize/{id}', [ShopController::class, 'editsize']);
+Route::put('admin/updatesize/{id}', [ShopController::class, 'updatesize']);
+Route::delete('admin/deletesize/{id}', [ShopController::class, 'deletesize']);
