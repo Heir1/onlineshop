@@ -19,6 +19,10 @@ use App\Models\Registbanner;
 use App\Models\Passwordbanner;
 use App\Models\Paymentsetting;
 use App\Models\Size;
+use App\Models\Color;
+use App\Models\Country;
+use App\Models\Shippingcost;
+use App\Models\Shippingcostrest;
 
 class AdminController extends Controller
 {
@@ -77,19 +81,19 @@ class AdminController extends Controller
     }
 
     public function color(){
-        return view("admin.color");
+        $colors = Color::get();
+        $increment = 1;
+        return view("admin.color")->with("colors", $colors)->with("increment",$increment);
     }
 
     public function addcolor(){
         return view("admin.addcolor");
     }
 
-    public function editcolor(){
-        return view("admin.editcolor");
-    }
-
-    public function country(){
-        return view("admin.country");
+    public function viewcountrypage(){
+        $countries = Country::get();
+        $increment=1;
+        return view("admin.country")->with("countries", $countries)->with("increment", $increment);
     }
 
     public function addcountry(){
@@ -101,36 +105,40 @@ class AdminController extends Controller
     }
 
     public function shippingcost(){
-        return view("admin.shippingcost");
+        $countries = Country::get();
+        $shippingcosts = Shippingcost::get();
+        $shippingcostrest = Shippingcostrest::first();
+
+        return view("admin.shippingcost")->with("countries",$countries)->with('shippingcosts', $shippingcosts)->with('shippingcostrest', $shippingcostrest);
     }
 
-    public function editshippingcost(){
-        return view("admin.editshippingcost");
-    }
+    // public function editshippingcost(){
+    //     return view("admin.editshippingcost");
+    // }
 
-    public function toplevelcategory(){
-        return view("admin.toplevelcategory");
-    }
+    // public function toplevelcategory(){
+    //     return view("admin.toplevelcategory");
+    // }
 
-    public function addtoplevelcategory(){
-        return view("admin.addtoplevelcategory");
-    }
+    // public function addtoplevelcategory(){
+    //     return view("admin.addtoplevelcategory");
+    // }
 
-    public function edittoplevelcategory(){
-        return view("admin.edittoplevelcategory");
-    }
+    // public function edittoplevelcategory(){
+    //     return view("admin.edittoplevelcategory");
+    // }
 
-    public function midlevelcategory(){
-        return view("admin.midlevelcategory");
-    }
+    // public function midlevelcategory(){
+    //     return view("admin.midlevelcategory");
+    // }
 
-    public function addmidlevelcategory(){
-        return view("admin.addmidlevelcategory");
-    }
+    // public function addmidlevelcategory(){
+    //     return view("admin.addmidlevelcategory");
+    // }
 
-    public function editmidlevelcategory(){
-        return view("admin.editmidlevelcategory");
-    }
+    // public function editmidlevelcategory(){
+    //     return view("admin.editmidlevelcategory");
+    // }
 
     public function endlevelcategory(){
         return view("admin.endlevelcategory");
@@ -142,18 +150,6 @@ class AdminController extends Controller
 
     public function editendlevelcategory(){
         return view("admin.editendlevelcategory");
-    }
-
-    public function products(){
-        return view("admin.products");
-    }
-
-    public function addproduct(){
-        return view("admin.addproduct");
-    }
-
-    public function editproduct(){
-        return view("admin.editproduct");
     }
 
     public function orders(){

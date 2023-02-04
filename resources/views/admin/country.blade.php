@@ -5,16 +5,27 @@
 @endsection
 
 @section('content')
-	<!-- start content -->
+    <!-- start content -->
     <div class="content-wrapper">
         <section class="content-header">
            <div class="content-header-left">
               <h1>View Countries</h1>
            </div>
            <div class="content-header-right">
-              <a href="country-add.php" class="btn btn-primary btn-sm">Add New</a>
+              <a href="{{ url('admin/addcountry', []) }}" class="btn btn-primary btn-sm">Add New</a>
            </div>
         </section>
+        @if (Session::has("status"))
+        <section class="content" style="min-height:auto;margin-bottom: -30px;">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="callout callout-success">
+                    <p>{{Session::get("status")}}</p>
+                    </div>
+                </div>
+            </div>
+         </section>
+         @endif
         <section class="content">
            <div class="row">
               <div class="col-md-12">
@@ -29,15 +40,22 @@
                              </tr>
                           </thead>
                           <tbody>
-                             <tr>
-                                <td>1</td>
-                                <td>Afghanistan</td>
-                                <td>
-                                   <a href="country-edit.php?id=1" class="btn btn-primary btn-xs">Edit</a>
-                                   <a href="#" class="btn btn-danger btn-xs" data-href="country-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-                                </td>
-                             </tr>
-                             <tr>
+                           @foreach ($countries as $country)
+                              <tr>
+                                 <td>{{$increment++}}</td>
+                                 <td>{{$country->country_name}}</td>
+                                 <td style="display: flex">
+                                    <a href="{{ url('admin/editcountry', [$country->id]) }}" class="btn btn-primary btn-xs">Edit</a>
+                                    {{-- <a href="#" class="btn btn-danger btn-xs" data-href="country-delete.php?id=1" data-toggle="modal" data-target="#confirm-delete">Delete</a> --}}
+                                    <form action="{{ url('admin/deletecountry', [$country->id]) }}" method="post">
+                                       @csrf
+                                       @method('DELETE')
+                                       <button type="submit" class="btn btn-danger btn-xs" style="margin-left: 5px">Delete</button>
+                                    </form>
+                                 </td>
+                              </tr>
+                           @endforeach
+                             {{-- <tr>
                                 <td>2</td>
                                 <td>Albania</td>
                                 <td>
@@ -1988,28 +2006,28 @@
                                    <a href="country-edit.php?id=245" class="btn btn-primary btn-xs">Edit</a>
                                    <a href="#" class="btn btn-danger btn-xs" data-href="country-delete.php?id=245" data-toggle="modal" data-target="#confirm-delete">Delete</a>
                                 </td>
-                             </tr>
+                             </tr> --}}
                           </tbody>
                        </table>
                     </div>
                  </div>
         </section>
         <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
-                    </div>
-                    <div class="modal-body">
-                        Are you sure want to delete this item?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-danger btn-ok">Delete</a>
-                    </div>
-                </div>
-            </div>
+        <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+        </div>
+        <div class="modal-body">
+        Are you sure want to delete this item?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger btn-ok">Delete</a>
+        </div>
+        </div>
+        </div>
         </div>
     </div>
     <!-- end content -->

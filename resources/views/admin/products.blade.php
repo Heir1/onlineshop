@@ -12,9 +12,20 @@
                 <h1>View Products</h1>
             </div>
             <div class="content-header-right">
-                <a href="product-add.php" class="btn btn-primary btn-sm">Add Product</a>
+                <a href="{{ url('admin/addproduct', []) }}" class="btn btn-primary btn-sm">Add Product</a>
             </div>
         </section>
+        @if (Session::has("status"))
+            <section class="content" style="min-height:auto;margin-bottom: -30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="callout callout-success">
+                        <p>{{Session::get("status")}}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -36,26 +47,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                <td>1</td>
-                                <td style="width:82px;"><img src="{{asset('backend/admin/uploads/product-featured-102.jpg')}}" alt="Women's Plus-Size Shirt Dress with Gold Hardware" style="width:80px;"></td>
-                                <td>Women's Plus-Size Shirt Dress with Gold Hardware</td>
-                                <td>$190</td>
-                                <td>$169</td>
-                                <td>112</td>
-                                <td>
-                                    <span class="badge badge-success" style="background-color:green;">Yes</span>									
-                                </td>
-                                <td>
-                                    <span class="badge badge-success" style="background-color:green;">Yes</span>									
-                                </td>
-                                <td>Women<br>Clothing<br>Dresses</td>
-                                <td>										
-                                    <a href="product-edit.php?id=102" class="btn btn-primary btn-xs">Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs" data-href="product-delete.php?id=102" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
-                                </td>
-                                </tr>
-                                <tr>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td>{{$increment++}}</td>
+                                        <td style="width:82px; "><img src="{{asset('/storage/productimages/'.$product->p_featured_photo)}}" alt="Women's Plus-Size Shirt Dress with Gold Hardware" style="width:80px; border-radius: 50%"></td>
+                                        <td>{{$product->p_name}}</td>
+                                        <td>${{$product->p_old_price}}</td>
+                                        <td>${{$product->p_current_price}}</td>
+                                        <td>{{$product->p_qty}}</td>
+                                        <td>
+                                            @if ($product->p_is_featured)
+                                                <span class="badge badge-success" style="background-color:green;">Yes</span>									   
+                                            @else
+                                                <span class="badge badge-success" style="background-color:red;">Yes</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($product->p_is_active)
+                                                <span class="badge badge-success" style="background-color:green;">Yes</span>									   
+                                            @else
+                                                <span class="badge badge-success" style="background-color:red;">Yes</span>
+                                            @endif									
+                                        </td>
+                                        <td>Women<br>Clothing<br>Dresses</td>
+                                        <td style="display: flex">										
+                                            <a href="{{ url('admin/editproduct', [$product->id]) }}" class="btn btn-primary btn-xs">Edit</a>
+                                            <form action="{{ url('admin/deleteproduct', [$product->id]) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" style="margin-left: 5px" class="btn btn-danger btn-xs">Delete</button>
+                                            </form> 
+                                        </td>
+                                    </tr>            
+                                @endforeach
+                                {{-- <tr>
                                 <td>2</td>
                                 <td style="width:82px;"><img src="{{asset('backend/admin/uploads/product-featured-101.jpg')}}" alt="Digital Infrared Thermometer for Adults and Kids" style="width:80px;"></td>
                                 <td>Digital Infrared Thermometer for Adults and Kids</td>
@@ -415,7 +440,7 @@
                                     <a href="product-edit.php?id=83" class="btn btn-primary btn-xs">Edit</a>
                                     <a href="#" class="btn btn-danger btn-xs" data-href="product-delete.php?id=83" data-toggle="modal" data-target="#confirm-delete">Delete</a>  
                                 </td>
-                                </tr>
+                                </tr> --}}
                             </tbody>
                         </table>
                     </div>

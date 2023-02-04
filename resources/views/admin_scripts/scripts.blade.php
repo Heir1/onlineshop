@@ -21,6 +21,11 @@
 <script src="{{asset('backend/admin/js/demo.js')}}"></script>
 <script src="{{asset('backend/admin/js/summernote.js')}}"></script>
 <script>
+    function closediv(e){
+        e.parentNode.parentNode.parentNode.removeChild(e.parentNode.parentNode);
+    }
+</script>
+<script>
     $(document).ready(function() {
             $('#editor1').summernote({
                 height: 300
