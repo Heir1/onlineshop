@@ -156,18 +156,6 @@ class AdminController extends Controller
         return view("admin.orders");
     }
 
-    public function sliders(){
-        return view("admin.sliders");
-    }
-
-    public function addslider(){
-        return view("admin.addslider");
-    }
-
-    public function editslider(){
-        return view("admin.editslider");
-    }
-
     public function services(){
         return view("admin.services");
     }

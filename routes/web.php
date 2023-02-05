@@ -7,6 +7,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,9 +66,6 @@ Route::get('admin/editmidlevelcategory', [AdminController::class, 'editmidlevelc
 Route::get('admin/editmidlevelcategory', [AdminController::class, 'editmidlevelcategory']);
 
 Route::get('admin/orders', [AdminController::class, 'orders']);
-Route::get('admin/sliders', [AdminController::class, 'sliders']);
-Route::get('admin/addslider', [AdminController::class, 'addslider']);
-Route::get('admin/editslider', [AdminController::class, 'editslider']);
 Route::get('admin/services', [AdminController::class, 'services']);
 Route::get('admin/addservice', [AdminController::class, 'addservice']);
 Route::get('admin/editservice', [AdminController::class, 'editservice']);
@@ -154,6 +152,14 @@ Route::delete('admin/deleteshippingcost/{id}', [ShopController::class, 'deletesh
 Route::post('admin/saverestamount', [ShopController::class, 'saverestamount']);
 Route::put('admin/updaterestamount/{id}', [ShopController::class, 'updaterestamount']);
 
+// Slider Controller
+
+Route::get('admin/sliders', [SliderController::class, 'sliders']);
+Route::get('admin/addslider', [SliderController::class, 'addslider']);
+Route::post('admin/saveslider', [SliderController::class, 'saveslider']);
+Route::get('admin/editslider/{id}', [SliderController::class, 'editslider']);
+Route::put('admin/updateslider/{id}', [SliderController::class, 'updateslider']);
+Route::delete('admin/deleteslider/{id}', [SliderController::class, 'deleteslider']);
 
 // Product Controller
 
