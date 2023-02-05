@@ -67,8 +67,12 @@ Route::get('admin/editmidlevelcategory', [AdminController::class, 'editmidlevelc
 
 Route::get('admin/orders', [AdminController::class, 'orders']);
 Route::get('admin/services', [AdminController::class, 'services']);
+Route::post('admin/saveservice', [AdminController::class, 'saveservice']);
 Route::get('admin/addservice', [AdminController::class, 'addservice']);
-Route::get('admin/editservice', [AdminController::class, 'editservice']);
+Route::get('admin/editservice/{id}', [AdminController::class, 'editservice']);
+Route::put('admin/updateservice/{id}', [AdminController::class, 'updateservice']);
+Route::delete('admin/deleteservice/{id}', [AdminController::class, 'deleteservice']);
+
 Route::get('admin/faq', [AdminController::class, 'faq']);
 Route::get('admin/addfaq', [AdminController::class, 'addfaq']);
 Route::get('admin/editfaq', [AdminController::class, 'editfaq']);

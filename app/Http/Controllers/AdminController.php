@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Logo;
 use App\Models\Favicon;
 use App\Models\Coordonate;
@@ -23,6 +24,7 @@ use App\Models\Color;
 use App\Models\Country;
 use App\Models\Shippingcost;
 use App\Models\Shippingcostrest;
+use App\Models\Service;
 
 class AdminController extends Controller
 {
@@ -112,34 +114,6 @@ class AdminController extends Controller
         return view("admin.shippingcost")->with("countries",$countries)->with('shippingcosts', $shippingcosts)->with('shippingcostrest', $shippingcostrest);
     }
 
-    // public function editshippingcost(){
-    //     return view("admin.editshippingcost");
-    // }
-
-    // public function toplevelcategory(){
-    //     return view("admin.toplevelcategory");
-    // }
-
-    // public function addtoplevelcategory(){
-    //     return view("admin.addtoplevelcategory");
-    // }
-
-    // public function edittoplevelcategory(){
-    //     return view("admin.edittoplevelcategory");
-    // }
-
-    // public function midlevelcategory(){
-    //     return view("admin.midlevelcategory");
-    // }
-
-    // public function addmidlevelcategory(){
-    //     return view("admin.addmidlevelcategory");
-    // }
-
-    // public function editmidlevelcategory(){
-    //     return view("admin.editmidlevelcategory");
-    // }
-
     public function endlevelcategory(){
         return view("admin.endlevelcategory");
     }
@@ -157,15 +131,114 @@ class AdminController extends Controller
     }
 
     public function services(){
-        return view("admin.services");
+
+        $services = Service::get();
+        $increment=1;
+
+        return view("admin.services")->with("services",$services)->with("increment",$increment);
+
     }
 
     public function addservice(){
         return view("admin.addservice");
     }
 
-    public function editservice(){
-        return view("admin.editservice");
+    public function saveservice(Request $request){
+        
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',   
+            'photo' => 'image|nullable|max:1999|required'
+        ]);
+
+        // 1 : file name with extension
+        $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+
+        // 2 : file name
+        $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+
+        // 3 : file extension
+        $ext = $request->file('photo')->getClientOriginalExtension();
+        
+        // 4 : file name to store
+        $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+
+        // 5 : uploading file
+        $path = $request->file('photo')->storeAs('public/serviceimages', $fileNameToStore);
+
+        $service = new Service();
+
+        $service->title = $request->input("title");
+        $service->content = $request->input("content");
+        $service->photo = $fileNameToStore;
+
+        $service->save();
+
+        return redirect("admin/services")->with("status", "The service has been successfully saved !!!");
+
+    }
+
+    public function editservice($id){
+
+        $service = Service::find($id);
+        return view("admin.editservice")->with("service",$service);
+    }
+
+    public function updateservice(Request $request, $id){
+        
+        $this->validate($request, [
+            'title' => 'required|string',
+            'content' => 'required|string',   
+        ]);
+
+        $service = Service::find($id);
+
+        if ($request->file('photo')) {
+            # code...
+            $this->validate($request, [   
+                'photo' => 'image|nullable|max:1999|required'
+            ]);
+
+            // 1 : file name with extension
+            $fileNameWithExt = $request->file('photo')->getClientOriginalName();
+    
+            // 2 : file name
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+    
+            // 3 : file extension
+            $ext = $request->file('photo')->getClientOriginalExtension();
+            
+            // 4 : file name to store
+            $fileNameToStore = $fileName.'_'.time().'.'.$ext;
+            
+            // 5 removing old image
+            Storage::delete("public/serviceimages/$service->photo");
+
+            // 6 : uploading file
+            $path = $request->file('photo')->storeAs('public/serviceimages', $fileNameToStore);
+
+            $service->photo = $fileNameToStore;
+
+        }
+
+        $service->title = $request->input("title");
+        $service->content = $request->input("content");
+
+        $service->update();
+
+        return back()->with("status", "The service has been successfully updated !!!");
+
+    }
+
+    public function deleteservice($id){
+        
+        $service = Service::find($id);
+        Storage::delete("public/serviceimages/$service->photo");
+
+        $service->delete();
+
+        return back()->with("status", "The service has been successfully deleted !!! ");
+        
     }
 
     public function faq(){
