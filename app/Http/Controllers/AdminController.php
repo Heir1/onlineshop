@@ -25,6 +25,7 @@ use App\Models\Country;
 use App\Models\Shippingcost;
 use App\Models\Shippingcostrest;
 use App\Models\Service;
+use App\Models\Faq;
 
 class AdminController extends Controller
 {
@@ -238,19 +239,71 @@ class AdminController extends Controller
         $service->delete();
 
         return back()->with("status", "The service has been successfully deleted !!! ");
-        
+
     }
 
     public function faq(){
-        return view("admin.faq");
+
+        $faqs = Faq::get();
+        $increment = 1;
+
+        return view("admin.faq")->with("faqs",$faqs)->with("increment",$increment);
     }
 
     public function addfaq(){
         return view("admin.addfaq");
     }
 
-    public function editfaq(){
-        return view("admin.editfaq");
+    public function savefaq(Request $request){
+        
+        $this->validate($request, [
+            'faq_title' => 'string|required',
+            'faq_content' => 'string|required'
+        ]);
+
+        $faq = new Faq();
+
+        $faq->faq_title = $request->input("faq_title");
+        $faq->faq_content = $request->input("faq_content");
+
+        $faq->save();
+
+        return redirect("admin/faq")->with("status", "The faq has been successfully saved !!!");
+
+   }
+
+    public function editfaq($id){
+
+        $faq = Faq::find($id);
+        return view("admin.editfaq")->with("faq",$faq);
+
+    }
+
+    public function updatefaq(Request $request, $id){
+        
+        $this->validate($request, [
+            'faq_title' => 'string|required',
+            'faq_content' => 'string|required'
+        ]);
+
+        $faq = Faq::find($id);
+
+        $faq->faq_title = $request->input("faq_title");
+        $faq->faq_content = $request->input("faq_content");
+
+        $faq->update();
+
+        return back()->with("status", "The faq has been successfully updated !!!");
+
+    }
+
+    public function deletefaq($id){
+        
+        $faq = Faq::find($id);
+        $faq->delete();
+
+        return back()->with("status", "The faq has been successfully deleted !!!");
+        
     }
 
     public function registeredcustomer(){

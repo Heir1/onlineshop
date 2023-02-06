@@ -75,7 +75,11 @@ Route::delete('admin/deleteservice/{id}', [AdminController::class, 'deleteservic
 
 Route::get('admin/faq', [AdminController::class, 'faq']);
 Route::get('admin/addfaq', [AdminController::class, 'addfaq']);
-Route::get('admin/editfaq', [AdminController::class, 'editfaq']);
+Route::post('admin/savefaq', [AdminController::class, 'savefaq']);
+Route::get('admin/editfaq/{id}', [AdminController::class, 'editfaq']);
+Route::put('admin/updatefaq/{id}', [AdminController::class, 'updatefaq']);
+Route::delete('admin/deletefaq/{id}', [AdminController::class, 'deletefaq']);
+
 Route::get('admin/registeredcustomer', [AdminController::class, 'registeredcustomer']);
 Route::get('admin/pagesettings', [AdminController::class, 'pagesettings']);
 Route::get('admin/socialmedia', [AdminController::class, 'socialmedia']);
