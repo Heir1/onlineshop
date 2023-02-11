@@ -14,7 +14,7 @@
               <div class="col-md-12">
                  <div class="breadcrumb mb_30">
                     <ul>
-                       <li><a href="">Home</a></li>
+                       <li><a href="{{ url('/', []) }}">Home</a></li>
                        <li>></li>
                        <li><a href="product-category.php?id=1&type=top-category">Men</a></li>
                        <li>></li>
@@ -29,31 +29,44 @@
                     <div class="row">
                        <div class="col-md-5">
                           <ul class="prod-slider">
-                             <li style="background-image: url({{asset('frontend/assets/uploads/product-featured-86.jpg')}});">
-                                <a class="popup" href="{{asset('frontend/assets/uploads/product-featured-86.jpg')}}"></a>
-                             </li>
-                             <li style="background-image: url({{asset('frontend/assets/uploads/product_photos/112.jpg')}});">
+                              <li style="background-image: url({{asset('/storage/productimages/'.$product->p_featured_photo)}});">
+                                 <a class="popup" href="{{asset('/storage/productimages/'.$product->p_featured_photo)}}"></a>
+                              </li> 
+                              @foreach ($selectedphotos as $selectedphoto)
+                                 <li style="background-image: url({{asset('/storage/productimages/'.$selectedphoto)}});">
+                                    <a class="popup" href="{{asset('/storage/productimages/'.$selectedphoto)}}"></a>
+                                 </li>    
+                              @endforeach
+
+                             {{-- <li style="background-image: url({{asset('frontend/assets/uploads/product_photos/112.jpg')}});">
                                 <a class="popup" href="{{asset('frontend/assets/uploads/product_photos/112.jpg')}}"></a>
                              </li>
+
                              <li style="background-image: url({{asset('frontend/assets/uploads/product_photos/113.jpg')}});">
                                 <a class="popup" href="{{asset('frontend/assets/uploads/product_photos/113.jpg')}}"></a>
-                             </li>
+                             </li> --}}
+                             
                           </ul>
                           <div id="prod-pager">
-                             <a data-slide-index="0" href="">
-                                <div class="prod-pager-thumb" style="background-image: url({{asset('frontend/assets/uploads/product-featured-86.jpg')}})"></div>
-                             </a>
-                             <a data-slide-index="1" href="">
+                           <a data-slide-index="0" href="">
+                              <div class="prod-pager-thumb" style="background-image: url({{asset('/storage/productimages/'.$product->p_featured_photo)}})"></div>
+                           </a>
+                           @foreach ($selectedphotos as $selectedphoto)
+                              <a data-slide-index="{{$increment++}}" href="">
+                                 <div class="prod-pager-thumb" style="background-image: url({{asset('/storage/productimages/'.$selectedphoto)}})"></div>
+                              </a>
+                           @endforeach
+                             {{-- <a data-slide-index="1" href="">
                                 <div class="prod-pager-thumb" style="background-image: url({{asset('frontend/assets/uploads/product_photos/112.jpg')}})"></div>
                              </a>
                              <a data-slide-index="2" href="">
                                 <div class="prod-pager-thumb" style="background-image: url({{asset('frontend/assets/uploads/product_photos/113.jpg')}})"></div>
-                             </a>
+                             </a> --}}
                           </div>
                        </div>
                        <div class="col-md-7">
                           <div class="p-title">
-                             <h2>Amazfit GTS 3 Smart Watch for Android iPhone</h2>
+                             <h2>{{$product->p_name}}</h2>
                           </div>
                           <div class="p-review">
                              <div class="rating">
@@ -62,7 +75,7 @@
                           <div class="p-short-des">
                              <p>
                              <p style="padding: 0px; margin-top: 0px; text-rendering: optimizelegibility; margin-bottom: 0px !important; line-height: 32px !important;">
-                                <span id="productTitle" class="a-size-large product-title-word-break" style="text-rendering: optimizelegibility; word-break: break-word; line-height: 32px !important; font-family: Roboto;">Alexa Built-in, GPS Fitness Sports Watch with 150 Sports Modes, 1.75â€ AMOLED Display, 12-Day Battery Life, Blood Oxygen Heart Rate Tracking</span>
+                                <span id="productTitle" class="a-size-large product-title-word-break" style="text-rendering: optimizelegibility; word-break: break-word; line-height: 32px !important; font-family: Roboto;">{!!$product->p_short_description!!}</span>
                              </p>
                              </p>
                           </div>
@@ -72,31 +85,31 @@
                                    <div class="col-md-12 mb_20">
                                       Select Size <br>
                                       <select name="size_id" class="form-control select2" style="width:auto;">
-                                         <option value="26">Free Size</option>
+                                          @foreach ($selectedsizes as $selectedsize)
+                                             <option value="{{$selectedsize}}">{{$selectedsize}}</option> 
+                                          @endforeach
                                       </select>
                                    </div>
                                    <div class="col-md-12">
                                       Select Color <br>
                                       <select name="color_id" class="form-control select2" style="width:auto;">
-                                         <option value="2">Black</option>
-                                         <option value="6">White</option>
-                                         <option value="17">Gray</option>
+                                          @foreach ($selectedcolors as $selectedcolor)
+                                             <option value="{{$selectedcolor}}">{{$selectedcolor}}</option>
+                                          @endforeach
                                       </select>
                                    </div>
                                 </div>
                              </div>
                              <div class="p-price">
-                                <span style="font-size:14px;">Product Price</span><br>
-                                <span>
-                                <del>$199</del>
-                                $179                                </span>
+                                    <span style="font-size:14px;">Product Price</span><br>
+                                 <span>
+                                    <del>${{$product->p_old_price}}</del>
+                                       ${{$product->p_current_price}}                                
+                                 </span>
                              </div>
-                             <input type="hidden" name="p_current_price" value="179">
-                             <input type="hidden" name="p_name" value="Amazfit GTS 3 Smart Watch for Android iPhone">
-                             <input type="hidden" name="p_featured_photo" value="product-featured-86.jpg">
                              <div class="p-quantity">
                                 Quantity <br>
-                                <input type="number" class="input-text qty" step="1" min="1" max="" name="p_qty" value="1" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
+                                <input type="number" class="input-text qty" step="1" min="1" max="" name="p_qty" value="{{$product->p_qty}}" title="Qty" size="4" pattern="[0-9]*" inputmode="numeric">
                              </div>
                              <div class="btn-cart btn-cart1">
                                 <input type="submit" value="Add to Cart" name="form_add_to_cart">
@@ -122,34 +135,19 @@
                           <div class="tab-content">
                              <div role="tabpanel" class="tab-pane active" id="description" style="margin-top: -30px;">
                                 <p>
-                                <p style="padding: 0px; margin-top: 0px; text-rendering: optimizelegibility; margin-bottom: 0px !important; line-height: 32px !important;">Amazfit GTS 3 is the most powerful, easy-to-use smartwatch that combining cutting-edge health &amp; fitness features and a fashionable slim &amp; light design. The smartwatch adopts a 1.75-inch ultra HD AMOLED display which has increased by 14% compared with the previous generation and boasts a 72.4% screen-to-body ratio that's among the highest in the smartwatch industry. Match your mood, an outfit or the occasion with a wide selection of more than 100 stylish watch faces - or even upload your own photo as the background image for true personalization. Thanks to the advanced 6PD (six photodiodes) BioTrackerâ„¢ PPG 3.0 biometric sensor, GTS 3 can track your heart rate, blood-oxygen saturation, stress level and breathing rate in one single tap of the watch, for a result in as little as 45 seconds. And Its health management features also includes in-depth monitoring of sleep &amp; sleep breathing quality and female cycle tracking. This sports watch is your next-level fitness partner with 150+ sports modes, smart recognition of 8 sports, and a water-resistance grade of 5 ATM. Comes with Alexa built-in and an offline voice assistant to liberate your hands, and supports GPS, GLONASS, Galileo, BDS and QZSS satellite navigation systems to accurately track your route. Super endurance that won't let you down, it can last for up to 12 days with typical usage and 20 days with battery saver mode. Compatible with Android 7.0 and above, iOS 12.0 and above device.<br></p>
+                                <p style="padding: 0px; margin-top: 0px; text-rendering: optimizelegibility; margin-bottom: 0px !important; line-height: 32px !important;"> {!!$product->p_description!!} <br></p>
                                 </p>
                              </div>
                              <div role="tabpanel" class="tab-pane" id="feature" style="margin-top: -30px;">
-                                <p>
-                                <ul>
-                                   <li>Smart 24H Monitoring of Blood-oxygen Levels</li>
-                                   <li>Monitor Heart Rate All Day &amp; While Swimming</li>
-                                   <li>A Simple Health Overview with PAI Health Assessment</li>
-                                   <li>In-depth Monitoring of Sleep &amp; Sleep Breathing Quality</li>
-                                   <li>Stress Level Monitoring &amp; Measurement</li>
-                                   <li>Female Cycle Tracking</li>
-                                   <li><span style="color: rgb(15, 17, 17); font-family:  Arial, sans-serif; font-size: 14px;">Alexa Built in</span></li>
-                                   <li><span style="color: rgb(15, 17, 17); font-family:  Arial, sans-serif; font-size: 14px;">12-Day battery life<br></span><span style="color: rgb(15, 17, 17); font-family:  Arial, sans-serif; font-size: 14px; font-weight: 700;"><br></span><span style="color: rgb(15, 17, 17); font-family: Arial, sans-serif; font-size: 14px; font-weight: 700;"><br></span><br></li>
-                                </ul>
-                                </p>
+                              {!!$product->p_feature!!}
                              </div>
                              <div role="tabpanel" class="tab-pane" id="condition" style="margin-top: -30px;">
-                                <p>
-                                <p><span style="color: rgb(51, 51, 51); font-size: 14px;">This is a sample text for conditions.</span><br></p>
-                                </p>
+                              {!!$product->p_condition!!}
                              </div>
                              <div role="tabpanel" class="tab-pane" id="return_policy" style="margin-top: -30px;">
-                                <p>
-                                <p><span style="margin: 0px; padding: 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px;">Offers a&nbsp;</span><span style="margin: 0px; padding: 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px;">15 to 30-day window</span><span style="margin: 0px; padding: 0px; color: rgb(32, 33, 36); font-family: arial, sans-serif; font-size: 16px;">&nbsp;in which customers can return a product and ask for a refund. Some businesses extend that period up to 90 days. Regardless of the time frame you choose, ensuring that you actually have a time frame is essential.</span><br></p>
-                                </p>
+                              {!!$product->p_return_policy!!}
                              </div>
-                             <div role="tabpanel" class="tab-pane" id="review" style="margin-top: -30px;">
+                             {{-- <div role="tabpanel" class="tab-pane" id="review" style="margin-top: -30px;">
                                 <div class="review-form">
                                    <h2>Reviews (0)</h2>
                                    Review not found                                        
@@ -168,7 +166,7 @@
                                       <input type="submit" class="btn btn-default" name="form_review" value="Submit Review">
                                    </form>
                                 </div>
-                             </div>
+                             </div> --}}
                           </div>
                        </div>
                     </div>

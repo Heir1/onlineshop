@@ -3,13 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Slider;
+use App\Models\Service;
+use App\Models\Product;
+use App\Models\Countproduct;
 
 class ClientController extends Controller
 {
     //
 
     public function homepage(){
-        return view("client.home");
+
+        $sliders = Slider::get();
+        $services = Service::get();
+        $countproduct = Countproduct::first();
+        $featuredproducts = Product::limit($countproduct->total_featured_product_home)->get();
+        $latestproducts = Product::limit($countproduct->total_latest_product_home)->orderBy("created_at","desc")->get();
+        $popularproducts = Product::limit($countproduct->total_popular_product_home)->orderBy("soldqty","desc")->get();
+        
+        // 
+        // 
+
+        $increment = 0;
+        $increment1 = 0;
+
+        return view("client.home")->with("sliders",$sliders)->with("services",$services)->with("featuredproducts",$featuredproducts)->with("latestproducts",$latestproducts)->with("popularproducts",$popularproducts)->with("increment",$increment)->with("increment1",$increment1);
     }
 
     public function about(){
@@ -64,8 +82,21 @@ class ClientController extends Controller
         return view("client.viewproductbycategory");
     }
 
-    public function viewproductdatails(){
-        return view("client.viewproductdetails");
+    public function viewproductdatails($id){
+
+        $product = Product::find($id);
+        $increment = 1;
+
+        $selectedsizes = explode("*",$product->size);
+        array_pop($selectedsizes);
+
+        $selectedcolors = explode("*",$product->color);
+        array_pop($selectedcolors);
+
+        $selectedphotos = explode("*",$product->photo);
+        array_pop($selectedphotos);
+
+        return view("client.viewproductdetails")->with("product",$product)->with("selectedsizes",$selectedsizes)->with("selectedcolors",$selectedcolors)->with("selectedphotos",$selectedphotos)->with("increment",$increment);
     }
 
     public function searchproduct(){
