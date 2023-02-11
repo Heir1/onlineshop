@@ -39,7 +39,9 @@ Route::get('profile', [ClientController::class, 'profile']);
 Route::get('billingdetails', [ClientController::class, 'billingdetails']);
 Route::get('viewpassword', [ClientController::class, 'viewpassword']);
 Route::get('customersorders', [ClientController::class, 'customersorders']);
-Route::get('viewproductbycategory', [ClientController::class, 'viewproductbycategory']);
+Route::get('viewproductbytopcategory/{tcatname}', [ClientController::class, 'viewproductbytopcategory']);
+Route::get('viewproductbymidcategory/{tcatname}/{mcatname}', [ClientController::class, 'viewproductbymidcategory']);
+Route::get('viewproductbyendcategory/{tcatname}/{mcatname}/{ecatname}', [ClientController::class, 'viewproductbyendcategory']);
 Route::get('viewproductdatails/{id}', [ClientController::class, 'viewproductdatails']);
 Route::get('searchproduct', [ClientController::class, 'searchproduct']);
 

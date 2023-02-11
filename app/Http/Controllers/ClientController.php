@@ -7,6 +7,8 @@ use App\Models\Slider;
 use App\Models\Service;
 use App\Models\Product;
 use App\Models\Countproduct;
+use App\Models\Toplevelcategory;
+use App\Models\Loginbanner;
 
 class ClientController extends Controller
 {
@@ -78,8 +80,34 @@ class ClientController extends Controller
         return view("client.customerorder");
     }
 
-    public function viewproductbycategory(){
-        return view("client.viewproductbycategory");
+    public function viewproductbytopcategory($tcatname){
+
+        $products = Product::where("tcat_id",$tcatname)->get();
+        
+        $banner = Loginbanner::first();
+
+        return view("client.viewproductbycategory")->with("products",$products)->with("category",$tcatname)->with("banner",$banner);
+
+    }
+    
+    public function viewproductbymidcategory($tcatname,$mcatname){
+
+        $products = Product::where("tcat_id",$tcatname)->where("mcat_id",$mcatname)->get();
+        
+        $banner = Loginbanner::first();
+
+        return view("client.viewproductbycategory")->with("products",$products)->with("category",$mcatname)->with("banner",$banner);
+
+    }
+
+    public function viewproductbyendcategory($tcatname,$mcatname,$ecatname){
+
+        $products = Product::where("tcat_id",$tcatname)->where("mcat_id",$mcatname)->where("ecat_id",$ecatname)->get();
+        
+        $banner = Loginbanner::first();
+
+        return view("client.viewproductbycategory")->with("products",$products)->with("category",$ecatname)->with("banner",$banner);
+
     }
 
     public function viewproductdatails($id){

@@ -69,7 +69,7 @@
                                                 <span class="badge badge-success" style="background-color:red;">Yes</span>
                                             @endif									
                                         </td>
-                                        <td>Women<br>Clothing<br>Dresses</td>
+                                        <td>{{$product->tcat_id}}<br>{{$product->mcat_id}}<br>{{$product->ecat_id}}</td>
                                         <td style="display: flex">										
                                             <a href="{{ url('admin/editproduct', [$product->id]) }}" class="btn btn-primary btn-xs">Edit</a>
                                             <form action="{{ url('admin/deleteproduct', [$product->id]) }}" method="post">

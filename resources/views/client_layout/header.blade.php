@@ -75,18 +75,18 @@
                     <li><a href="{{url('/')}}">Home</a></li>
                     @foreach ($toplevelcategories as $toplevelcategory)
                         <li>
-                            <a href="#">{{$toplevelcategory->tcat_name}}</a>
+                            <a href="{{ url('viewproductbytopcategory', [$toplevelcategory->tcat_name]) }}">{{$toplevelcategory->tcat_name}}</a>
 
                             <ul>
                                 @foreach ($middlelevelcategories as $middlelevelcategory)
                                 <li>
                                     @if ($middlelevelcategory->tcat_id == $toplevelcategory->tcat_name)
-                                        <a href="#">{{$middlelevelcategory->mcat_name}}</a>
+                                        <a href="{{ url('viewproductbymidcategory', [$toplevelcategory->tcat_name,$middlelevelcategory->mcat_name]) }}">{{$middlelevelcategory->mcat_name}}</a>
                                         <ul>
                                             @foreach ($endlevelcategories as $endlevelcategory)
                                                 @if ($endlevelcategory->tcat_id == $toplevelcategory->tcat_name && $endlevelcategory->mcat_id == $middlelevelcategory->mcat_name)
                                                     <li>
-                                                        <a href="#">{{$endlevelcategory->ecat_name}} 
+                                                        <a href="{{ url('viewproductbyendcategory', [$toplevelcategory->tcat_name,      $middlelevelcategory->mcat_name,$endlevelcategory->ecat_name]) }}">{{$endlevelcategory->ecat_name}} 
                                                         </a>
                                                     </li>
                                                 @endif
